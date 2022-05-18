@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol WeatherViewProtocol: AnyObject {
     func displayError(_ message: String)
@@ -17,11 +18,18 @@ final class WeatherViewModel {
     private var weatherArray = [Weather]()
     private let networkManager:Networkable
     private var delegate: WeatherViewProtocol?
-    
+    private var iconArray = [String:Data]()
     init(delegate: WeatherViewProtocol, networkManager:Networkable = NetworkManager()){
         self.delegate = delegate
         self.networkManager = networkManager
     }
+    
+    var cityName = ""
+    var temparature = 0.0
+    
+    var iconImageId = ""
+    var iconImage = UIImage()
+
     
     /* get response from api into your defined array*/
     func fetchData(text: String) {
@@ -36,12 +44,19 @@ final class WeatherViewModel {
             
               self?.weatherArray = response.weather
              
+              self?.cityName = response.name
+              self?.temparature = response.main.temp
+              self?.iconImageId = self?.weatherArray[0].icon ?? ""
+              
+            
               print(response.sys.country)
-              print(response.name)
+              print(self?.cityName)
+              print(self?.temparature)
+              print(self?.iconImageId)
 
               print(self?.weatherArray[0].description)
               print(self?.weatherArray[0].main)
-              print(self?.weatherArray[0].icon)
+
                             
               DispatchQueue.main.async {
                   self?.delegate?.refreshUI()
@@ -49,4 +64,9 @@ final class WeatherViewModel {
           }
        }
     
+    func getIconUrl() -> String {
+        let urlStr = self.networkManager.getIconUrl(iconId: iconImageId)
+        return urlStr
+    }
+        
 }

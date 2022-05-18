@@ -16,30 +16,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Location Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lUI-q5-rgd">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Location Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lUI-q5-rgd">
                                 <rect key="frame" x="60" y="108" width="294" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" systemColor="systemBlueColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HjL-i6-G54">
-                                <rect key="frame" x="130" y="150" width="134" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HjL-i6-G54">
+                                <rect key="frame" x="130" y="150" width="154" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Search"/>
                                 <connections>
                                     <action selector="getWeatherData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cp6-67-6gS"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIw-CL-13M">
+                                <rect key="frame" x="0.0" y="205" width="170" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhu-fV-giR">
+                                <rect key="frame" x="0.0" y="254.5" width="55" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="8sk-Cu-iTD"/>
+                                    <constraint firstAttribute="width" constant="55" id="OwK-HO-pXG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zRh-rK-f9t">
+                                <rect key="frame" x="275" y="189" width="139" height="120.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="139" id="rjl-Zj-uz9"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CIw-CL-13M" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="117" id="0ij-Lc-Az8"/>
+                            <constraint firstItem="zRh-rK-f9t" firstAttribute="bottom" secondItem="mhu-fV-giR" secondAttribute="bottom" id="7My-dT-pcV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HjL-i6-G54" secondAttribute="trailing" constant="130" id="9Gh-E0-TW3"/>
+                            <constraint firstItem="lUI-q5-rgd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="AaB-Rk-1D9"/>
+                            <constraint firstItem="mhu-fV-giR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CHf-rh-bXX"/>
+                            <constraint firstItem="CIw-CL-13M" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Qjj-jQ-tGL"/>
+                            <constraint firstItem="mhu-fV-giR" firstAttribute="top" secondItem="CIw-CL-13M" secondAttribute="bottom" constant="29" id="Srf-95-f9f"/>
+                            <constraint firstItem="lUI-q5-rgd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="Zub-LF-Ctq"/>
+                            <constraint firstItem="HjL-i6-G54" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="130" id="hmd-te-RNf"/>
+                            <constraint firstItem="zRh-rK-f9t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="101" id="hvD-l6-WUY"/>
+                            <constraint firstItem="HjL-i6-G54" firstAttribute="top" secondItem="lUI-q5-rgd" secondAttribute="bottom" constant="8" symbolic="YES" id="j67-M0-aqS"/>
+                            <constraint firstItem="zRh-rK-f9t" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ubk-Vm-UYT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lUI-q5-rgd" secondAttribute="trailing" constant="60" id="x8K-5A-NkB"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cYH-Pr-cie">
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="cityName" destination="CIw-CL-13M" id="kDy-hM-q9O"/>
+                        <outlet property="cityTemperature" destination="mhu-fV-giR" id="D4L-1k-AFh"/>
+                        <outlet property="iconImage" destination="zRh-rK-f9t" id="7ah-E2-Z5x"/>
                         <outlet property="locationName" destination="lUI-q5-rgd" id="dAF-OH-5kq"/>
                         <outlet property="searchBtn" destination="HjL-i6-G54" id="OqS-od-xVz"/>
                     </connections>

@@ -9,6 +9,7 @@ import Foundation
 
 protocol Networkable {
     func fetchData(text:String, completion: @escaping (WeatherResponse?, Error?) -> Void)
+    func getIconUrl(iconId:String) -> String
 }
 
 class NetworkManager: Networkable {
@@ -32,6 +33,7 @@ func fetchData(text:String, completion: @escaping (WeatherResponse?, Error?) -> 
                     do {
                         let result: WeatherResponse = try JSONDecoder().decode(WeatherResponse.self, from: data)
                         completion(result, nil)
+                        //result.weather[0].icon
                     }catch _ {
                         completion(nil, ServiceError.jsonConversionFailed)
                     }
@@ -43,6 +45,10 @@ func fetchData(text:String, completion: @escaping (WeatherResponse?, Error?) -> 
             }
         }
         .resume()
+    }
+    
+    func getIconUrl(iconId:String) -> String {
+        return "https://openweathermap.org/img/wn/\(iconId)@2x.png"
     }
 
 }
