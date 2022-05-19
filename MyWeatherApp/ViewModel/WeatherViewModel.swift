@@ -26,10 +26,10 @@ final class WeatherViewModel {
     
     var cityName = ""
     var temparature = 0.0
-    
     var iconImageId = ""
-    var iconImage = UIImage()
-
+    var description = ""
+    var maxTemp = 0.0
+    var minTemp = 0.0
     
     /* get response from api into your defined array*/
     func fetchData(text: String) {
@@ -44,19 +44,15 @@ final class WeatherViewModel {
             
               self?.weatherArray = response.weather
              
-              self?.cityName = response.name
+              self?.cityName = "\(response.name),\(response.sys.country)"
               self?.temparature = response.main.temp
+              self?.maxTemp = response.main.temp_max
+              self?.minTemp = response.main.temp_min
               self?.iconImageId = self?.weatherArray[0].icon ?? ""
+              self?.description = self?.weatherArray[0].description ?? ""
               
             
               print(response.sys.country)
-              print(self?.cityName)
-              print(self?.temparature)
-              print(self?.iconImageId)
-
-              print(self?.weatherArray[0].description)
-              print(self?.weatherArray[0].main)
-
                             
               DispatchQueue.main.async {
                   self?.delegate?.refreshUI()

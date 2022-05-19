@@ -22,12 +22,18 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var iconImage: UIImageView!
     
     
+    @IBOutlet private weak var weatherDescription: UILabel!
+    
+    
+    @IBOutlet private weak var maxTemp: UILabel!
+    
+    @IBOutlet private weak var minTemp: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         weatherViewModel = WeatherViewModel(delegate: self)
         weatherViewModel?.fetchData(text: "London")
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,9 +62,10 @@ extension HomeViewController: WeatherViewProtocol{
                 DispatchQueue.main.async {
                     self?.iconImage.image = UIImage(data: data)
                 }
-                        
             }
-
+            self.weatherDescription.text = self.weatherViewModel?.description.description
+            self.maxTemp.text = "H: " + (self.weatherViewModel?.maxTemp.description ?? "") + "°"
+            self.minTemp.text = "L: " + (self.weatherViewModel?.minTemp.description ?? "") + "°"
         }
 
     }
