@@ -50,7 +50,7 @@ extension HomeViewController: WeatherViewProtocol{
     func refreshUI() {
         DispatchQueue.main.async {
             self.cityName.text = self.weatherViewModel?.cityName
-            self.cityTemperature.text = self.weatherViewModel?.temparature.description
+            self.cityTemperature.text = (self.weatherViewModel?.temparature.description ?? "") + "°"
             let imageURL = self.weatherViewModel?.getIconUrl()
             ImageDownloader.shared.getImage(url: imageURL ?? "") { [weak self] data in
                 DispatchQueue.main.async {
