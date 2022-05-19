@@ -49,7 +49,7 @@ final class WeatherViewModel {
               self?.maxTemp = response.main.temp_max
               self?.minTemp = response.main.temp_min
               self?.iconImageId = self?.weatherArray[0].icon ?? ""
-              self?.description = self?.weatherArray[0].description ?? ""
+            self?.description = self?.weatherArray[0].description.capitalizingFirstLetter() ?? ""
               
             
               print(response.sys.country)
@@ -66,3 +66,14 @@ final class WeatherViewModel {
     }
         
 }
+
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
+}
+
