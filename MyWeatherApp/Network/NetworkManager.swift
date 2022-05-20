@@ -28,20 +28,21 @@ func fetchData(text:String, completion: @escaping (WeatherResponse?, Error?) -> 
                 return
             }
 
-            if httpResponse.statusCode == 200 {
-                if let data =  data{
-                    do {
-                        let result: WeatherResponse = try JSONDecoder().decode(WeatherResponse.self, from: data)
-                        completion(result, nil)
-                        //result.weather[0].icon
-                    }catch _ {
-                        completion(nil, ServiceError.jsonConversionFailed)
-                    }
-                }else {
-                    completion(nil, ServiceError.dataNotFound)
-                }
-            }else{
+            guard case httpResponse.statusCode = 200 else {
                 completion(nil, ServiceError.responseUnsuccessful)
+                return
+            }
+            
+            guard let data = data else {
+                completion(nil, ServiceError.dataNotFound)
+                return
+            }
+            
+            do {
+                let result: WeatherResponse = try JSONDecoder().decode(WeatherResponse.self, from: data)
+                completion(result, nil)
+               }catch _ {
+                completion(nil, ServiceError.jsonConversionFailed)
             }
         }
         .resume()
