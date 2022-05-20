@@ -30,6 +30,8 @@ final class WeatherViewModel {
     var description = ""
     var maxTemp = 0.0
     var minTemp = 0.0
+    var sunrise = ""
+    var sunset = ""
     
     /* get response from api into your defined array*/
     func fetchData(text: String) {
@@ -43,17 +45,18 @@ final class WeatherViewModel {
               }
             
               self?.weatherArray = response.weather
-             
               self?.cityName = "\(response.name),\(response.sys.country)"
               self?.temparature = response.main.temp
               self?.maxTemp = response.main.temp_max
               self?.minTemp = response.main.temp_min
               self?.iconImageId = self?.weatherArray[0].icon ?? ""
-            self?.description = self?.weatherArray[0].description.capitalizingFirstLetter() ?? ""
+              self?.description = self?.weatherArray[0].description.capitalizingFirstLetter() ?? ""
               
+              let timeZonefromJson = response.timezone
+            self?.sunrise = self?.extractTime(JsonUTCTime: response.sys.sunrise, JsonTimezone: timeZonefromJson) ?? ""
+            self?.sunset = self?.extractTime(JsonUTCTime: response.sys.sunset, JsonTimezone: timeZonefromJson) ?? ""
             
-              print(response.sys.country)
-                            
+            
               DispatchQueue.main.async {
                   self?.delegate?.refreshUI()
               }
@@ -64,7 +67,16 @@ final class WeatherViewModel {
         let urlStr = self.networkManager.getIconUrl(iconId: iconImageId)
         return urlStr
     }
+
+    private func extractTime(JsonUTCTime: Int,JsonTimezone: Int) -> String {
+        let epocTime = TimeInterval(JsonUTCTime+JsonTimezone)
+        let convertedDateTime = NSDate(timeIntervalSince1970: epocTime)
         
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
+        return formatter.string(from: convertedDateTime as Date)
+    }
 }
 
 extension String {

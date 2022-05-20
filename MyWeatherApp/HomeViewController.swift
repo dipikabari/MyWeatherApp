@@ -29,6 +29,11 @@ class HomeViewController: UIViewController {
     
     @IBOutlet private weak var minTemp: UILabel!
     
+    @IBOutlet private weak var sunRise: UILabel!
+    
+    @IBOutlet private weak var sunSet: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         weatherViewModel = WeatherViewModel(delegate: self)
@@ -64,8 +69,11 @@ extension HomeViewController: WeatherViewProtocol{
                 }
             }
             self.weatherDescription.text = self.weatherViewModel?.description.description
-            self.maxTemp.text = "H: " + (self.weatherViewModel?.maxTemp.description ?? "") + "°"
-            self.minTemp.text = "L: " + (self.weatherViewModel?.minTemp.description ?? "") + "°"
+            self.maxTemp.text = "High: " + (self.weatherViewModel?.maxTemp.description ?? "") + "°"
+            self.minTemp.text = "Low: " + (self.weatherViewModel?.minTemp.description ?? "") + "°"
+            
+            self.sunRise.text = self.weatherViewModel?.sunrise
+            self.sunSet.text = self.weatherViewModel?.sunset
         }
 
     }
