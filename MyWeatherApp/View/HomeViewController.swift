@@ -39,7 +39,12 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: WeatherViewProtocol{
     func displayError(_ message: String) {
-    
+        DispatchQueue.main.async {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let doneButton = UIAlertAction(title: "Done", style: .default, handler: nil)
+        alert.addAction(doneButton)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func refreshUI() {
