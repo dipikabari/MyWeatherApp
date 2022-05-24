@@ -38,6 +38,7 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: WeatherViewProtocol{
+
     func displayError(_ message: String) {
         DispatchQueue.main.async {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -49,8 +50,9 @@ extension HomeViewController: WeatherViewProtocol{
     
     func refreshUI() {
         DispatchQueue.main.async {
+            
             self.cityName.text = self.weatherViewModel?.cityName
-            self.cityTemperature.text = (self.weatherViewModel?.temparature.description ?? "") + "°"
+            self.cityTemperature.text = (self.weatherViewModel?.temperature.description ?? "") + "°"
             let imageURL = self.weatherViewModel?.getIconUrl()
             ImageDownloader.shared.getImage(url: imageURL ?? "") { [weak self] data in
                 DispatchQueue.main.async {
@@ -60,7 +62,7 @@ extension HomeViewController: WeatherViewProtocol{
             self.weatherDescription.text = self.weatherViewModel?.description.description
             self.maxTemp.text = "High: " + (self.weatherViewModel?.maxTemp.description ?? "") + "°"
             self.minTemp.text = "Low: " + (self.weatherViewModel?.minTemp.description ?? "") + "°"
-            
+
             self.sunRise.text = self.weatherViewModel?.sunrise
             self.sunSet.text = self.weatherViewModel?.sunset
         }
