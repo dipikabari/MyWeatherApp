@@ -15,7 +15,6 @@ protocol WeatherViewProtocol: AnyObject {
 
 final class WeatherViewModel {
 
-    private var weatherArray = [Weather]()
     private let networkManager:Networkable
     private var delegate: WeatherViewProtocol?
     private var iconArray = [String:Data]()
@@ -43,19 +42,15 @@ final class WeatherViewModel {
                   self?.delegate?.displayError("Failed to Search, Pls try again!")
                   return
               }
-            
-              self?.weatherArray = response.weather
               self?.cityName = "\(response.name),\(response.sys.country)"
               self?.temparature = response.main.temp
               self?.maxTemp = response.main.temp_max
               self?.minTemp = response.main.temp_min
-              self?.iconImageId = self?.weatherArray[0].icon ?? ""
-              self?.description = self?.weatherArray[0].description.capitalizingFirstLetter() ?? ""
+              self?.iconImageId = response.weather[0].icon
+              self?.description = response.weather[0].description.capitalizingFirstLetter()
               
-              let timeZonefromJson = response.timezone
-            self?.sunrise = self?.extractTime(JsonUTCTime: response.sys.sunrise, JsonTimezone: timeZonefromJson) ?? ""
-            self?.sunset = self?.extractTime(JsonUTCTime: response.sys.sunset, JsonTimezone: timeZonefromJson) ?? ""
-            
+              self?.sunrise = self?.extractTime(JsonUTCTime: response.sys.sunrise, JsonTimezone: response.timezone) ?? ""
+              self?.sunset = self?.extractTime(JsonUTCTime: response.sys.sunset, JsonTimezone: response.timezone) ?? ""
             
               DispatchQueue.main.async {
                   self?.delegate?.refreshUI()
